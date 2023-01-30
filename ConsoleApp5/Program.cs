@@ -124,6 +124,7 @@ namespace ConsoleApp5
         }
         public static bool IsBiggerRecursive(Queue<int> queue, int x)
         {
+            if(queue.IsEmpty()) return false;
             return IsBiggerRecursive(queue, x, new Queue<int>());
         }
         private static bool IsBiggerRecursive(Queue<int> queue, int x, Queue<int> backup)
@@ -131,13 +132,14 @@ namespace ConsoleApp5
 
             //תנאי עצירה
             if (queue.IsEmpty())
-                return false;
+                return true;
             //הערך שבראש התור
             int val = queue.Remove();
             //נגבה אותו
             backup.Insert(val);
+           
             //האם הערך קיים בחיפוש הנוכחי או בשאר התור
-            bool found = IsExistsRecursive(queue, x, backup) || val>x;
+             bool found = IsExistsRecursive(queue, x, backup)&& val < x; 
             //החזרה למצב מקורי
             queue.Insert(backup.Remove());
             return found;
@@ -162,7 +164,7 @@ namespace ConsoleApp5
             //Console.WriteLine(count);
             //Console.WriteLine(q1);
             //Console.ReadKey();
-            Console.WriteLine(IsBiggerRecursive(q1,5));
+            Console.WriteLine(IsBiggerRecursive(q1,0));
 
         }
     }
