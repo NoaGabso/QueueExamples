@@ -1,6 +1,7 @@
 ﻿using System;
 //using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using DataStructure;
@@ -143,20 +144,82 @@ namespace ConsoleApp5
             //החזרה למצב מקורי
             queue.Insert(backup.Remove());
             return found;
-
         }
 
+        public static Queue<T> MizogTorim<T>(Queue<T> queue1, Queue<T> queue2)
+        {
+            Queue<T> temp = new Queue<T>();
+            while (!queue1.IsEmpty()&& !queue2.IsEmpty())
+            {
+                T val1 = queue1.Remove();
+                temp.Insert(val1);
+                T val2 = queue2.Remove();
+                temp.Insert(val2);
+            }
+           
+                while(!queue2.IsEmpty())
+                {
+                    T val1 = queue2.Remove();
+                    temp.Insert(val1);
+                }
+            while (!queue1.IsEmpty())
+            {
+                T val1 = queue1.Remove();
+                temp.Insert(val1);
+            }
+            return temp;
 
+           
+            
+        }
+
+        public static Queue<int> MizogTorimMemoian(Queue<int> queue1, Queue<int> queue2)
+        {
+            Queue<int> temp = new Queue<int>();
+            while (!queue1.IsEmpty() && !queue2.IsEmpty())
+            {
+                int val1 = queue1.Remove();
+                int val2 = queue2.Remove();
+                if(val1>val2)
+                {
+                    temp.Insert(val2);
+                    temp.Insert(val1);
+                }
+                else
+                {
+                    temp.Insert(val1);
+                    temp.Insert(val2);
+                }
+            }
+           
+                while (!queue2.IsEmpty())
+                {
+                    int val1 = queue2.Remove();
+                    temp.Insert(val1);
+                }
+            while (!queue1.IsEmpty())
+            {
+                int val1 = queue1.Remove();
+                temp.Insert(val1);
+            }
+            return temp;
+        
+        }
 
 
 
         static void Main(string[] args)
         {
             Queue<int> q1 = new Queue<int>();
-            q1.Insert(7);
-            q1.Insert(8);
-            q1.Insert(9);
             q1.Insert(1);
+            q1.Insert(5);
+            q1.Insert(6);
+            q1.Insert(8);
+            Queue<int> q2 = new Queue<int>();
+            q2.Insert(2);
+            q2.Insert(3);
+            q2.Insert(4);
+            q2.Insert(7);
             //Console.WriteLine(q1);
             //Console.WriteLine(IsExist(q1,9));
             //Console.WriteLine(q1);
@@ -164,7 +227,8 @@ namespace ConsoleApp5
             //Console.WriteLine(count);
             //Console.WriteLine(q1);
             //Console.ReadKey();
-            Console.WriteLine(IsBiggerRecursive(q1,0));
+            //Console.WriteLine(IsBiggerRecursive(q1,0));
+            Console.WriteLine(MizogTorimMemoian(q1,q2));
 
         }
     }
