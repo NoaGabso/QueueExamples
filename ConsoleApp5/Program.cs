@@ -178,32 +178,31 @@ namespace ConsoleApp5
             Queue<int> temp = new Queue<int>();
             while (!queue1.IsEmpty() && !queue2.IsEmpty())
             {
-                int val1 = queue1.Remove();
-                int val2 = queue2.Remove();
+                int val1 = queue1.Head();
+                int val2 = queue2.Head();
                 if(val1>val2)
                 {
-                    temp.Insert(val2);
-                    temp.Insert(val1);
+                    temp.Insert(val2); 
+                    queue2.Remove();
                 }
                 else
                 {
-                    temp.Insert(val1);
-                    temp.Insert(val2);
+                    temp.Insert(val1); 
+                    queue1.Remove();
                 }
             }
            
                 while (!queue2.IsEmpty())
                 {
-                    int val1 = queue2.Remove();
-                    temp.Insert(val1);
+                    int val = queue2.Remove();
+                    temp.Insert(val);
                 }
             while (!queue1.IsEmpty())
             {
-                int val1 = queue1.Remove();
-                temp.Insert(val1);
+                int val = queue1.Remove();
+                temp.Insert(val);
             }
             return temp;
-        
         }
 
 
@@ -220,6 +219,7 @@ namespace ConsoleApp5
             q2.Insert(3);
             q2.Insert(4);
             q2.Insert(7);
+            q2.Insert(9);
             //Console.WriteLine(q1);
             //Console.WriteLine(IsExist(q1,9));
             //Console.WriteLine(q1);
